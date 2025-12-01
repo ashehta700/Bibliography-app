@@ -1,0 +1,154 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}SGS{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{% static 'images/logo-footer.png' %}" type="image/x-icon">
+
+    <!-- Tajawal font (modern Arabic-friendly) -->
+    <link href="{% static 'css/vendor/google-fonts-tajawal.css' %}" rel="stylesheet">
+    <!-- Add this inside your <head> tag in base.html -->
+    <link href="{% static 'css/vendor/bootstrap-icons.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap 5 -->
+    <link href="{% static 'css/vendor/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Google Fonts -->
+    <link href="{% static 'css/vendor/google-fonts-cairo-poppins.css' %}" rel="stylesheet">
+    <!-- Include Bootstrap Datepicker -->
+    <link href="{% static 'css/vendor/bootstrap-datepicker.min.css' %}"
+        rel="stylesheet">
+    <script src="{% static 'js/vendor/jquery.min.js' %}"></script>
+    <script
+        src="{% static 'js/vendor/bootstrap-datepicker.min.js' %}"></script>
+
+
+    <!-- Custom SGS theme -->
+    <link rel="stylesheet" href="{% static 'css/sgs-theme.css' %}">
+</head>
+
+<body style="font-family: 'Tajawal', sans-serif;">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-2 fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="{% static 'images/sgs-logo.png' %}" class="navbar-logo" height="40" alt="SGS Logo">
+                <!-- <span class="ms-2 fw-bold text-primary">{% trans "Saudi Geological Survey" %}</span> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link mx-4 active" href="{% url 'home' %}">{% trans "Home" %}</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link mx-4" href="https://ngd.sgs.gov.sa/en/about-us/">{% trans "About Us" %} </a></li>
+                    <li class="nav-item"><a class="nav-link mx-4" href="{% url 'report_admin_list' %}">
+                        {% trans "Reports" %} </a></li>
+                    <li class="nav-item"><a class="nav-link mx-4" href="#">{% trans "Contact Us" %} </a></li>
+
+                </ul>
+                <div class="ms-3">
+
+                    <form id="lang-toggle" action="{% url 'set_language' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                        <input type="hidden" name="language" value="en">
+                        <button class="btn btn-primary" style="background-color: var(--main-color);"
+                            type="submit">E</button>
+                        {% else %}
+                        <input type="hidden" name="language" value="ar">
+                        <button class="btn btn-primary" style="background-color: var(--main-color);"
+                            type="submit">ع</button>
+                        {% endif %}
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="flex-grow-1  pt-5 mt-3">
+        {% block content %}
+        <!-- Page content goes here -->
+        {% endblock %}
+    </main>
+    <!-- Back to Top Button -->
+    <button onclick="scrollToTop()" id="backToTopBtn" title="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+    <!-- Footer -->
+
+    <footer class="bg-light text-center text-muted py-3 mt-auto border-top">
+        <div class="container">
+            {% trans "&copy; 2025 Saudi Geological Survey. All rights reserved." %}
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle -->
+    <script src="{% static 'js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        window.onscroll = function () {
+            document.getElementById("backToTopBtn").style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shrink');
+            } else {
+                navbar.classList.remove('shrink');
+            }
+        });
+
+
+
+// Disable certain key combinations
+document.addEventListener('keydown', function (e) {
+    const key = e.key.toLowerCase();
+
+    // Block Ctrl+S / Cmd+S
+    if ((e.ctrlKey || e.metaKey) && key === 's') {
+        e.preventDefault();
+        alert("Saving is disabled.");
+    }
+
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'c', 'j'].includes(key)) {
+            e.preventDefault();
+        }
+    // Block Ctrl+P / Cmd+P
+    if ((e.ctrlKey || e.metaKey) && key === 'p') {
+        e.preventDefault();
+        alert("Printing is disabled.");
+    }
+
+    // Block Ctrl+U / Cmd+U (View source)
+    if ((e.ctrlKey || e.metaKey) && key === 'u') {
+        e.preventDefault();
+    }
+
+    // Block F12 (DevTools)
+    if (e.key === 'F12') {
+        e.preventDefault();
+        alert("F12 is disabled.");
+    }
+});
+
+    </script>
+
+</body>
+
+</html>

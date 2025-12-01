@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<style>
+    /* Customize tab appearance */
+    .nav-tabs {
+        border-bottom: 2px solid var(--main-color);
+        /* Main border */
+    }
+
+    .nav-tabs .nav-link {
+        color: var(--main-color);
+        /* Text color */
+        background-color: #f8f9fa;
+        /* Light background */
+        border: 1px solid var(--main-color);
+        margin-right: 5px;
+        border-radius: 0.375rem 0.375rem 0 0;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color: var(--main-color);
+        color: white;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: var(--main-color);
+        color: white;
+        border-color: var(--main-color) var(--main-color) white;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="card shadow-lg border-0">
+
+        <!-- Title -->
+        <div class="report-header text-white">
+            <div class="container py-4">
+                <div class="row">
+                    <!-- Title: occupies 10 columns -->
+                    <div class="col-md-11  border-white">
+                        <h2 class="report_title mb-2">
+                            📘
+                            {% if LANGUAGE_CODE == "ar" %}
+                            {{ report.Title_ar }}
+                            {% else %}
+                            {{ report.Title }}
+                            {% endif %}
+                        </h2>
+                        <small class="text-light">{% trans "Detailed Report View" %}</small>
+                    </div>
+
+                    <!-- Year: occupies 2 columns, content stacked vertically -->
+                    <div
+                        class="col-md-1 text-md-center mt-3 mt-md-0 d-flex flex-column justify-content-center align-items-md-center {% if LANGUAGE_BIDI %}border-end{% else %}border-start{% endif %}">
+                        <div class="year-label text-uppercase text-light small">{% trans "Year" %}</div>
+                        <div class="year-value text-white fs-5 fw-bold">{{ report.Date_Issue }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body">
+            <!-- Metadata -->
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>📄 {% trans "Report Number" %}:</strong>
+                    {{ report.Library_Reference}}</li>
+                <li class="list-group-item"><strong>📁 {% trans "Type" %}:</strong>
+                    {% if LANGUAGE_CODE == "ar" %}
+                    {{ report.Type_of_report_ID.Arabic_Value }}
+                    {% else %}
+                    {{ report.Type_of_report_ID.English_Value }}
+                    {% endif %}
+                </li>
+                <li class="list-group-item"><strong>🏢 {% trans "Company" %}:</strong>
+                    {% if LANGUAGE_CODE == "ar" %}
+                    {{ report.company.Arabic_Value }}
+                    {% else %}
+                    {{ report.company }}
+                    {% endif %}
+                </li>
+                <li class="list-group-item"><strong>👤 {% trans "Author" %}:</strong> {{ report.Authors_Name }}</li>
+                <li class="list-group-item"><strong><i class="bi bi-eye"></i> {% trans "Number of Reading " %}:</strong>
+                    {{ report.read_count }}</li>
+                <li class="list-group-item">
+                    <strong>📝 {% trans "Abstract" %}:</strong>
+                    <div id="abstract-short">
+                        {% if LANGUAGE_CODE == "ar" %}
+                        {{ report.Abstract_ar|truncatechars:200 }}
+                        {% if report.Abstract_ar|length > 200 %}
+                        ... <a href="#" onclick="toggleAbstract(event)">عرض المزيد</a>
+                        {% endif %}
+                        {% else %}
+                        {{ report.abstract|truncatechars:200 }}
+                        {% if report.abstract|length > 200 %}
+                        ... <a href="#" onclick="toggleAbstract(event)">See more</a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    <div id="abstract-full" style="display:none;">
+                        {% if LANGUAGE_CODE == "ar" %}
+                        {{ report.Abstract_ar|linebreaks }}
+                        <a href="#" onclick="toggleAbstract(event)">عرض الاقل</a>
+                        {% else %}
+                        {{ report.abstract|linebreaks }}
+                        <a href="#" onclick="toggleAbstract(event)">See less</a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="list-group-item"><strong>📝 {% trans "Keywords" %}: </strong>
+                    {{ report.Keywords|default:_("No Keywords Available.") }}
+                </li>
+                <li class="list-group-item"><strong>📝 {% trans "References" %}: </strong>
+                    {{ report.References|default:_("No References Available.") }}
+                </li>
+                {% if related_reports %}
+                <li class="list-group-item">
+                    <strong>📎 {% trans "Appendix Documents" %}:</strong>
+                    <div class="mt-3">
+                        <ul class="nav nav-tabs" id="appendixTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="tab-main" data-token="{{ pdf_token }}"
+                                    onclick="loadAppendixPDF(this)"
+                                    title="{% if LANGUAGE_CODE == 'ar' %}{{ report.Title_ar }}{% else %}{{ report.Title }}{% endif %}">
+                                    {% trans "Main File" %}
+                                </button>
+                            </li>
+                            {% for r in related_reports %}
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-{{ r.Library_Reference }}" data-token="{{ r.token }}"
+                                    onclick="loadAppendixPDF(this)"
+                                    title="{% if LANGUAGE_CODE == 'ar' %}{{ r.Title_ar }}{% else %}{{ r.Title }}{% endif %}">
+                                    {{ r.Name_of_appendix|truncatechars:20 }}
+                                </button>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+
+            <!-- PDF Viewer -->
+            <!-- Main Buttons -->
+            <div class="mb-4 container">
+             
+
+                <!-- Tabs for Main PDF and Appendices -->
+                <div class="container mt-4">
+                    <h5>{% trans "Files" %}</h5>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'home' %}" class="btn btn-main-outline btn-sm">⬅️ {% trans "Back to Home" %}</a>
+                            <button class="btn btn-main-outline btn-sm" onclick="downloadPDF()">⬇️ {% trans "Download PDF"%}</button>
+                            <button class="btn btn-main-outline btn-sm" onclick="goFullScreen()">🔎 {% trans "Full Screen"%}</button>
+                        </div>
+                    </div>
+                    <div id="appendixTabs" class="nav nav-tabs">
+                        <!-- Main File Tab -->
+                        <button class="nav-link active" data-token="{{ pdf_token }}" onclick="loadPDF(this)">
+                            🗎 {{ main_pdf_filename }}
+                        </button>
+
+                        <!-- Appendix Tabs -->
+                        {% for appendix in appendices %}
+                        <button class="nav-link" data-token="{{ appendix.token }}" onclick="loadPDF(this)">
+                            📎 {{ appendix.filename }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- PDF Viewer -->
+                <div class="border rounded shadow-sm overflow-hidden mt-3">
+                    <iframe id="pdfViewer" src="{% url 'secure_pdf' pdf_token %}" allowfullscreen
+                        sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function goFullScreen() {
+        const iframe = document.getElementById('pdfViewer');
+        if (iframe.requestFullscreen) {
+            iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
+        } else if (iframe.msRequestFullscreen) {
+            iframe.msRequestFullscreen();
+        }
+    }
+
+    function toggleAbstract(event) {
+        event.preventDefault();
+        const shortEl = document.getElementById('abstract-short');
+        const fullEl = document.getElementById('abstract-full');
+        shortEl.style.display = shortEl.style.display === 'none' ? '' : 'none';
+        fullEl.style.display = fullEl.style.display === 'none' ? '' : 'none';
+    }
+
+    function downloadPDF() {
+        let token = "{{ pdf_token }}";
+        const activeTab = document.querySelector('#appendixTabs .nav-link.active');
+        if (activeTab) {
+            token = activeTab.getAttribute('data-token');
+        }
+
+        const url = "/download/" + token;
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function loadPDF(button) {
+        // Remove 'active' class from all buttons
+        document.querySelectorAll('#appendixTabs .nav-link').forEach(btn => btn.classList.remove('active'));
+
+        // Add 'active' to the clicked button
+        button.classList.add('active');
+
+        // Load the selected PDF
+        const token = button.getAttribute('data-token');
+        const iframe = document.getElementById('pdfViewer');
+        iframe.src = `/secure_pdf/${token}/`;  // Adjust URL if needed
+    }
+
+
+</script>
+{% endblock %}

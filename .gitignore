@@ -1,0 +1,36 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environments
+env/
+venv/
+
+# Ignore database files
+db.sqlite3
+
+# Ignore media uploads
+media/
+
+
+# Ignore runserever file 
+run_server.py
+
+
+
+
+
+# Ignore local settings
+*.log
+*.pot
+*.mo
+
+# Ignore VSCode & JetBrains
+.vscode/
+.idea/
+
+# Ignore OS files
+Thumbs.db
+.DS_Store

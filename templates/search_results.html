@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Reports | SGS{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h3 class="text-primary mb-4">Search Reports</h3>
+
+    <!-- Advanced Filters -->
+    <form method="GET" action="{% url 'search_reports' %}" class="border rounded p-4 bg-light mb-4 shadow-sm">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label><strong>Search By:</strong></label><br>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="filter_by" value="company" id="filterCompany" checked>
+                    <label class="form-check-label" for="filterCompany">Report Company</label>
+                    <select class="form-select mt-1" name="company">
+                        <option value="">All Companies</option>
+                        <option value="SGS">SGS</option>
+                        <option value="Other">Other</option>
+                        <!-- Add options dynamically -->
+                    </select>
+                </div>
+
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="radio" name="filter_by" value="author" id="filterAuthor">
+                    <label class="form-check-label" for="filterAuthor">Report Author</label>
+                    <input type="text" class="form-control mt-1" name="author" placeholder="Enter author name">
+                </div>
+
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="radio" name="filter_by" value="id" id="filterID">
+                    <label class="form-check-label" for="filterID">Report ID</label>
+                    <input type="text" class="form-control mt-1" name="report_id" placeholder="Enter report ID">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-check mt-4 pt-2">
+                    <input class="form-check-input" type="radio" name="filter_by" value="title" id="filterTitle">
+                    <label class="form-check-label" for="filterTitle">Report Title</label>
+                    <input type="text" class="form-control mt-1" name="title" placeholder="Enter title">
+                </div>
+
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="radio" name="filter_by" value="type" id="filterType">
+                    <label class="form-check-label" for="filterType">Report Type</label>
+                    <select class="form-select mt-1" name="report_type">
+                        <option value="">-- Select Type --</option>
+                        <option value="Geological">Geological</option>
+                        <option value="Geophysical">Geophysical</option>
+                        <!-- Add types -->
+                    </select>
+                </div>
+
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="radio" name="filter_by" value="year" id="filterYear">
+                    <label class="form-check-label" for="filterYear">Report Year</label>
+                    <input type="number" class="form-control mt-1" name="year" placeholder="e.g. 2021">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-dark px-4" type="submit"><i class="bi bi-search"></i> Search</button>
+        </div>
+    </form>
+
+    <!-- Result Table -->
+    <h5 class="text-muted mb-3">Found {{ count }} results</h5>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Type</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr>
+                    <td>{{ report.report_number }}</td>
+                    <td>{{ report.title }}</td>
+                    <td>{{ report.year }}</td>
+                    <td>{{ report.report_type }}</td>
+                    <td>{{ report.author }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'report_detail' report.id %}" class="btn btn-sm btn-outline-primary">Details</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">No reports found matching your criteria.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if reports.has_other_pages %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if reports.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ reports.previous_page_number }}{{ query_params }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            {% endif %}
+
+            {% for i in reports.paginator.page_range %}
+            <li class="page-item {% if reports.number == i %}active{% endif %}">
+                <a class="page-link" href="?page={{ i }}{{ query_params }}">{{ i }}</a>
+            </li>
+            {% endfor %}
+
+            {% if reports.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ reports.next_page_number }}{{ query_params }}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,436 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-10 10:23+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\reports\forms.py:15
+msgid "Library Reference"
+msgstr "رقم التقرير"
+
+#: .\reports\forms.py:16
+msgid "Year of Issue"
+msgstr "تاريخ الإصدار"
+
+#: .\reports\forms.py:17 .\templates\admin_reports\list.html:56
+#: .\templates\admin_reports\list.html:88 .\templates\home.html:170
+#: .\templates\home.html:234
+msgid "Report Type"
+msgstr "نوع التقرير"
+
+#: .\reports\forms.py:18
+msgid "Title (EN)"
+msgstr "العنوان بللغة الانجليزية"
+
+#: .\reports\forms.py:19
+msgid "Title (AR)"
+msgstr "العنوان بللغة العربية"
+
+#: .\reports\forms.py:20
+msgid "Authors"
+msgstr "إسم مؤلف التقرير"
+
+#: .\reports\forms.py:21
+msgid "Abstract (EN)"
+msgstr " ملخص التقرير بللغة الاتجليزية"
+
+#: .\reports\forms.py:22
+msgid "Abstract (AR)"
+msgstr "ملخص التقرير بللغة العربية"
+
+#: .\reports\forms.py:23 .\templates\report_detail.html:113
+msgid "Keywords"
+msgstr "الكلمات الافتتاحية "
+
+#: .\reports\forms.py:24 .\templates\report_detail.html:116
+msgid "References"
+msgstr "المراجع"
+
+#: .\reports\forms.py:25
+msgid "Upload PDF File"
+msgstr "تحميل الملف"
+
+#: .\reports\forms.py:26 .\templates\report_detail.html:78
+msgid "Company"
+msgstr " إسم الشركة"
+
+#: .\reports\views.py:473 .\templates\admin_reports\list.html:116
+msgid "Edit"
+msgstr "تعديــل"
+
+#: .\reports\views.py:473
+msgid "Add"
+msgstr "إضافة"
+
+#: .\templates\admin_reports\confirm_delete.html:7
+msgid "Confirm Delete"
+msgstr "تأكيد الحــــذف"
+
+#: .\templates\admin_reports\confirm_delete.html:10
+#, python-format
+msgid " Are you sure you want to delete \"%(report.Title)s\"?"
+msgstr "هل انت متأكد من حذف هذا التقرير \"%(report.Title)s\"?"
+
+#: .\templates\admin_reports\confirm_delete.html:15
+msgid "Yes, Delete"
+msgstr "نعم , حذف "
+
+#: .\templates\admin_reports\confirm_delete.html:18
+msgid "Cancel"
+msgstr "عودة"
+
+#: .\templates\admin_reports\form.html:7
+msgid "Report"
+msgstr "تقرير"
+
+#: .\templates\admin_reports\form.html:27
+msgid "Appendices"
+msgstr "الملفات الملحقة"
+
+#: .\templates\admin_reports\form.html:43
+msgid "Appendix Name"
+msgstr "إسم الملف"
+
+#: .\templates\admin_reports\form.html:44
+msgid "Appendix File"
+msgstr "الملفات الملحقة"
+
+#: .\templates\admin_reports\form.html:45
+msgid "Notes"
+msgstr "ملاحظات"
+
+#: .\templates\admin_reports\form.html:46
+msgid "Type of Report"
+msgstr "نوع التقرير"
+
+#: .\templates\admin_reports\form.html:47
+msgid "Action"
+msgstr "الاعدادات"
+
+#: .\templates\admin_reports\form.html:68
+#: .\templates\admin_reports\form.html:91
+#: .\templates\admin_reports\list.html:119
+msgid "Delete"
+msgstr "حــــذف"
+
+#: .\templates\admin_reports\form.html:99
+msgid "Add Appendix"
+msgstr "إضافة ملف جديد"
+
+#: .\templates\admin_reports\form.html:104
+msgid "Save"
+msgstr "حفظ"
+
+#: .\templates\admin_reports\form.html:107
+msgid "Back to List"
+msgstr "العودة الى قائمة التقارير"
+
+#: .\templates\admin_reports\list.html:10
+msgid "Reports List"
+msgstr "قائمة جميع التقارير"
+
+#: .\templates\admin_reports\list.html:12
+msgid "Add Report"
+msgstr "إضافة تقرير جديد "
+
+#: .\templates\admin_reports\list.html:19 .\templates\home.html:28
+#: .\templates\home.html:127
+msgid "Advanced Search"
+msgstr "البحث المتقدم"
+
+#: .\templates\admin_reports\list.html:30 .\templates\home.html:134
+msgid "Report Company"
+msgstr "البحث باسم الشركة"
+
+#: .\templates\admin_reports\list.html:32 .\templates\home.html:140
+msgid "All Companies"
+msgstr "كل الشركات"
+
+#: .\templates\admin_reports\list.html:45 .\templates\home.html:155
+msgid "Report Author"
+msgstr "إسم مؤلف التقرير"
+
+#: .\templates\admin_reports\list.html:46 .\templates\home.html:157
+msgid "Enter author name"
+msgstr "إدخل إسم المؤلف"
+
+#: .\templates\admin_reports\list.html:48
+#: .\templates\admin_reports\list.html:85 .\templates\home.html:159
+#: .\templates\home.html:231
+msgid "Report ID"
+msgstr "رقم التقرير"
+
+#: .\templates\admin_reports\list.html:49 .\templates\home.html:161
+msgid "Enter report ID"
+msgstr "إدخل رقم التقرير"
+
+#: .\templates\admin_reports\list.html:53
+#: .\templates\admin_reports\list.html:86 .\templates\home.html:166
+#: .\templates\home.html:232
+msgid "Report Title"
+msgstr "عنوان التقرير"
+
+#: .\templates\admin_reports\list.html:54 .\templates\home.html:168
+msgid "Enter report title"
+msgstr "إدخل عنوان التقرير"
+
+#: .\templates\admin_reports\list.html:57
+msgid "Enter report type"
+msgstr "إدخل رقم التقرير"
+
+#: .\templates\admin_reports\list.html:59
+#: .\templates\admin_reports\list.html:87 .\templates\home.html:185
+#: .\templates\home.html:233 .\templates\report_detail.html:58
+msgid "Year"
+msgstr "السنة"
+
+#: .\templates\admin_reports\list.html:60 .\templates\home.html:187
+msgid "Enter year eg. 2025 .. "
+msgstr "إدخل سنة التقرير مثال 2025 .."
+
+#: .\templates\admin_reports\list.html:67
+msgid "Reset"
+msgstr "إعادة الضبط"
+
+#: .\templates\admin_reports\list.html:70 .\templates\home.html:192
+msgid "Search"
+msgstr "إبحث"
+
+#: .\templates\admin_reports\list.html:89 .\templates\home.html:235
+msgid "Actions"
+msgstr "الاعددات"
+
+#: .\templates\admin_reports\list.html:113 .\templates\home.html:258
+msgid "Details"
+msgstr "تفاصيل"
+
+#: .\templates\admin_reports\list.html:127
+msgid "Related Documents in"
+msgstr "الملفات ذات الصلة"
+
+#: .\templates\admin_reports\list.html:146
+msgid "No related documents available."
+msgstr "لا يوجد وثائق ذات صلة"
+
+#: .\templates\admin_reports\list.html:153 .\templates\home.html:212
+msgid "No reports found."
+msgstr "لا يوجد تقارير"
+
+#: .\templates\admin_reports\list.html:168
+#: .\templates\admin_reports\list.html:171 .\templates\home.html:298
+#: .\templates\home.html:301
+msgid "Previous"
+msgstr "السابق"
+
+#: .\templates\admin_reports\list.html:192
+#: .\templates\admin_reports\list.html:195 .\templates\home.html:322
+#: .\templates\home.html:325
+msgid "Next"
+msgstr "التالى"
+
+#: .\templates\base.html:42
+msgid "Saudi Geological Survey"
+msgstr "هيئة المساحة الجيولوجية"
+
+#: .\templates\base.html:49
+msgid "Home"
+msgstr "الصفحة الرئيسية"
+
+#: .\templates\base.html:51
+msgid "About Us"
+msgstr "نبذه عنا"
+
+#: .\templates\base.html:53
+msgid "Reports"
+msgstr "التقارير"
+
+#: .\templates\base.html:54
+msgid "Contact Us"
+msgstr "تواصل بنا"
+
+#: .\templates\base.html:93
+msgid "&copy; 2025 Saudi Geological Survey. All rights reserved."
+msgstr "&copy; 2025 هيئة المساحة الجيولوجية. جميع الحقوق محفوظة."
+
+#: .\templates\home.html:12
+msgid "Bibliographic Database"
+msgstr "قاعدة بيانات التقارير الفنية "
+
+#: .\templates\home.html:13
+msgid ""
+"Publications of Saudi Geological Survey including books, maps reports, "
+"technical reports and open file reports."
+msgstr ""
+"منشورات هيئة المساحة الجيولوجية السعودية : الكتب  والتقارير الفنية وتقارير "
+"الملفات المفتوحة."
+
+#: .\templates\home.html:18
+msgid "Search by Title of the Report , or Report ID  or keywords ...."
+msgstr " إبحث بعنوان الملف او برقم الملف او الكلمات الافتتاحية  .... "
+
+#: .\templates\home.html:19 .\templates\home.html:85
+msgid "Quick Search"
+msgstr "البحث السريع"
+
+#: .\templates\home.html:21
+msgid "Reset Filters"
+msgstr "إعادة الضبط"
+
+#: .\templates\home.html:38
+msgid "Top Reading"
+msgstr "الأكثر قراءة"
+
+#: .\templates\home.html:63
+#| msgid "Number of Reading "
+msgid "number of reading"
+msgstr "عدد القراءات"
+
+#: .\templates\home.html:67
+msgid "No data available yet."
+msgstr "لا يوجد وثائق ذات صلة"
+
+#: .\templates\home.html:86
+msgid "Instantly find reports by title or keywords."
+msgstr "ابحث فورًا عن التقارير حسب العنوان أو الكلمات الرئيسية"
+
+#: .\templates\home.html:98
+msgid "PDF Reports"
+msgstr "التقارير"
+
+#: .\templates\home.html:99
+msgid "Access original and verified SGS geological documents."
+msgstr ""
+"الوصول إلى الوثائق الجيولوجية الأصلية والموثقة من هيئة المساحة الجيولوجية ."
+
+#: .\templates\home.html:111
+msgid "Documents"
+msgstr "الوثائق"
+
+#: .\templates\home.html:112
+msgid "Browse a vast archive of official SGS reports."
+msgstr "تصفح أرشيفًا ضخمًا من التقارير الرسمية لشركة لهيئة المساحة الجيولوجية."
+
+#: .\templates\home.html:128 .\templates\home.html:193
+msgid "Close"
+msgstr "إغلاق"
+
+#: .\templates\home.html:172
+msgid "All Report Types"
+msgstr "كل التقارير"
+
+#: .\templates\home.html:207
+msgid "Welcome!"
+msgstr "مرحباً ! "
+
+#: .\templates\home.html:207
+msgid " Use the search form above to explore official SGS reports.!"
+msgstr ""
+"استخدم نموذج البحث أعلاه لاستكشاف التقارير الرسمية لهيئة المساحة الجيولوجية.!"
+
+#: .\templates\home.html:213
+msgid "Try adjusting your filters or search criteria and try again."
+msgstr "حاول تعديل معايير البحث الخاصة بك وحاول مرة أخرى."
+
+#: .\templates\home.html:218
+msgid "Found"
+msgstr "تم العثور على "
+
+#: .\templates\home.html:218
+msgid "results"
+msgstr "من نتائج البحث"
+
+#: .\templates\home.html:222
+msgid "Export CSV"
+msgstr "تصدير النتيجة"
+
+#: .\templates\home.html:263
+msgid "Appendix"
+msgstr "الملفات الملحقة"
+
+#: .\templates\home.html:271
+msgid "Related Appendix"
+msgstr "الملفات الملحقة"
+
+#: .\templates\home.html:280
+#| msgid "No related documents available."
+msgid "No appendices available"
+msgstr "لا يوجد وثائق ذات صلة"
+
+#: .\templates\report_detail.html:52
+msgid "Detailed Report View"
+msgstr "تفاصيل بيانات التقرير"
+
+#: .\templates\report_detail.html:69
+msgid "Report Number"
+msgstr "رقم التقرير"
+
+#: .\templates\report_detail.html:71
+msgid "Type"
+msgstr "نوع التقرير"
+
+#: .\templates\report_detail.html:85
+msgid "Author"
+msgstr "إسم مؤلف التقرير"
+
+#: .\templates\report_detail.html:86
+msgid "Number of Reading "
+msgstr "عدد القراءات"
+
+#: .\templates\report_detail.html:89
+msgid "Abstract"
+msgstr "ملخص التقرير"
+
+#: .\templates\report_detail.html:114
+#| msgid "No data available yet."
+msgid "No Keywords Available."
+msgstr "لا يوجد وثائق ذات صلة"
+
+#: .\templates\report_detail.html:117
+#| msgid "No related documents available."
+msgid "No References Available."
+msgstr "لا يوجد وثائق ذات صلة"
+
+#: .\templates\report_detail.html:121
+msgid "Appendix Documents"
+msgstr "الملفات الملحقة"
+
+#: .\templates\report_detail.html:128
+msgid "Main File"
+msgstr "التقرير الرئيسي"
+
+#: .\templates\report_detail.html:153
+msgid "Files"
+msgstr "الملفات"
+
+#: .\templates\report_detail.html:156
+msgid "Back to Home"
+msgstr "العودة الى الصفحة الرئيسية"
+
+#: .\templates\report_detail.html:157
+msgid "Download PDF"
+msgstr "تحميل التقرير"
+
+#: .\templates\report_detail.html:158
+msgid "Full Screen"
+msgstr "عرض الملف داخل شاشة كاملة "
+
+#~ msgid "# of reading"
+#~ msgstr "عدد القراءات"
+
+#~ msgid "Add New Report"
+#~ msgstr "إضافة تقرير جديد "

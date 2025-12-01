@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load form_tags %}
+
+{% block content %}
+<div class="container my-4">
+  <h2 class="mb-4">{{ action }} {% trans "Report" %}</h2>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <div class="row g-3">
+      {% for field in form %}
+      <div class="col-md-6">
+        <label for="{{ field.id_for_label }}" class="form-label">
+          {{ field.label }}{% if field.field.required %} <span class="text-danger">*</span>{% endif %}
+        </label>
+        {{ field|add_class:"form-control" }}
+        {% for error in field.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <hr class="mt-4 mb-3">
+    <!-- <h4>{% trans "Appendices" %}</h4>
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %} -->
+    
+    <!-- {% if formset.non_form_errors %}
+    <div class="alert alert-danger">{{ formset.non_form_errors }}</div>
+    {% endif %} -->
+
+    <!-- {{ formset.management_form }}
+
+    <table class="table table-bordered" id="appendix-table">
+      <thead class="table-light">
+        <tr>
+          <th>{% trans "Appendix Name" %}</th>
+          <th>{% trans "Appendix File" %}</th>
+          <th>{% trans "Notes" %}</th>
+          <th>{% trans "Type of Report" %}</th>
+          <th>{% trans "Action" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for form in formset.forms %}
+        <tr class="appendix-form">
+          <td>{{ form.Name_of_appendix|add_class:"form-control" }}</td>
+          <td>{{ form.pdf_file|add_class:"form-control" }}</td>
+          <td style="display:none;">{{ form.Appendix_Id }}</td>
+          <td>{{ form.Notes|add_class:"form-control" }}</td>
+          <td>
+            <select name="{{ form.Type_of_report_ID.html_name }}" id="{{ form.Type_of_report_ID.id_for_label }}" class="form-select">
+              {% for type in type_choices %}
+                <option value="{{ type.pk }}"
+                  {% if form.instance.Type_of_report_ID and form.instance.Type_of_report_ID.pk == type.pk %} selected {% endif %}>
+                  {{ type.English_Value }}
+                </option>
+              {% endfor %}
+            </select>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger remove-row">{% trans "Delete" %}</button>
+          </td>
+          {{ form.id }}
+          <td style="display:none;">{{ form.DELETE }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table> -->
+
+    <!-- Empty Form Template -->
+    <template id="empty-form-template">
+      <tr class="appendix-form">
+        <td><input type="text" name="form-__prefix__-Name_of_appendix" class="form-control" /></td>
+        <td><input type="file" name="form-__prefix__-pdf_file" class="form-control" /></td>
+        <td><input type="text" name="form-__prefix__-Notes" class="form-control" /></td>
+        <td>
+          <select name="form-__prefix__-Type_of_report_ID" class="form-select" id="id_form-__prefix__-Type_of_report_ID">
+            {% for type in type_choices %}
+            <option value="{{ type.pk }}">{{ type.English_Value }}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger remove-row">{% trans "Delete" %}</button>
+        </td>
+        <input type="hidden" name="form-__prefix__-id" />
+        <input type="checkbox" name="form-__prefix__-DELETE" style="display:none;" />
+      </tr>
+    </template>
+<!-- 
+    <button type="button" class="btn btn-outline-primary mb-3" id="add-appendix">
+      <i class="bi bi-plus-lg"></i> {% trans "Add Appendix" %}
+    </button> -->
+
+    <div class="mt-4">
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-save"></i> {% trans "Save" %}
+      </button>
+      <a href="{% url 'report_admin_list' %}" class="btn btn-secondary ms-2">
+        <i class="bi bi-arrow-left"></i> {% trans "Back to List" %}
+      </a>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const addButton = document.getElementById("add-appendix");
+    const appendixTable = document.querySelector("#appendix-table tbody");
+    const totalForms = document.getElementById("id_form-TOTAL_FORMS");
+    const emptyFormTemplate = document.getElementById("empty-form-template").content;
+
+    function addAppendixRow() {
+      const formIdx = Number(totalForms.value);
+      const newRow = document.importNode(emptyFormTemplate, true);
+
+      // Update form field names and ids
+      newRow.querySelectorAll("[name]").forEach(el => {
+        el.name = el.name.replace(/__prefix__/g, formIdx);
+      });
+      newRow.querySelectorAll("[id]").forEach(el => {
+        if(el.id) el.id = el.id.replace(/__prefix__/g, formIdx);
+      });
+
+      appendixTable.appendChild(newRow);
+      totalForms.value = formIdx + 1;
+    }
+
+    addButton.addEventListener("click", addAppendixRow);
+
+    appendixTable.addEventListener("click", function (e) {
+      if (e.target.classList.contains("remove-row")) {
+        const row = e.target.closest("tr");
+        const deleteInput = row.querySelector("input[type='checkbox'][name$='-DELETE']");
+        if (deleteInput) {
+          // For existing rows, mark DELETE and hide
+          deleteInput.checked = true;
+          row.style.display = "none";
+        } else {
+          // For newly added rows, remove completely and adjust total forms count
+          row.remove();
+          totalForms.value = Number(totalForms.value) - 1;
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

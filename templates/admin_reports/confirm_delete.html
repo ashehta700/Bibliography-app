@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container py-4" dir="{% get_current_language_bidi as bidi %}{% if bidi %}rtl{% else %}ltr{% endif %}">
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-danger text-white">
+      <h4 class="mb-0 text-white">{% trans "Confirm Delete" %}</h4>
+    </div>
+    <div class="card-body">
+      <p>{% blocktrans %} Are you sure you want to delete "{{ report.Title }}"?{% endblocktrans %}</p>
+
+      <form method="post" class="d-flex justify-content-between">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+          <i class="bi bi-trash"></i> {% trans "Yes, Delete" %}
+        </button>
+        <a href="{% url 'report_admin_list' %}" class="btn btn-secondary">
+          <i class="bi bi-x-circle"></i> {% trans "Cancel" %}
+        </a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
